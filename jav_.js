@@ -1015,7 +1015,8 @@ var Sign = function () {
                             }
                         }
                     }
-                    sessionStorage.setItem("SigUP", rash_up), sessionStorage.setItem("SigDN", rash_down), sessionStorage.setItem("SigCol", ("#d75c48" == color_text ? "Red" : "#008f1d" == color_text ? "Green" : "White"))
+                    console.log("SigUP : " + rash_up + " - SigDN : " + rash_down + " - SigCol : " + ("#d75c48" == color_text ? "Red" : "#008f1d" == color_text ? "Green" : "White"))
+                    //sessionStorage.setItem("SigUP", rash_up), sessionStorage.setItem("SigDN", rash_down), sessionStorage.setItem("SigCol", ("#d75c48" == color_text ? "Red" : "#008f1d" == color_text ? "Green" : "White"))
                 }
             }
         };
