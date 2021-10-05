@@ -1015,6 +1015,7 @@ var Sign = function () {
                             }
                         }
                     }
+                    console.log(rash_up + " - " + rash_down);
                     const domains = ["https://dv097.github.io","https://binomo-web.com"];
                     window.addEventListener("message", messageHandler, false);
                     function messageHandler(event) {
