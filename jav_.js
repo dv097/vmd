@@ -1015,21 +1015,22 @@ var Sign = function () {
                             }
                         }
                     }
-                    window.addEventListener("message", handleMessage, false);
-
-                    function handleMessage(e) {
-                        let {key, value, method} = e.data;
-                        if (method == 'store') {
-                            window.sessionStorage.setItem(key, value); // Store data in iframe domain local storage
-                        } else if (method == 'retrieve') {
-                            let response = window.sessionStorage.getItem(key);
-                            e.source.postMessage({
-                                key,
-                                response,
-                                method: 'response'
-                            }, '*'); // Retrieve local storage data
-                        }
-                    } 
+                    const domains = ["https://dv097.github.io","https://binomo-web.com"]
+                    window.addEventListener("message", messageHandler, false);
+                    function messageHandler(event) {
+                      if (!domains.includes(event.origin))
+                        return;
+                      const { action, key, value } = event.data
+                      if (action == 'save'){
+                        window.sessionStorage.setItem(key, JSON.stringify(value))
+                      } else if (action == 'get') {
+                        event.source.postMessage({
+                          action: 'returnData',
+                          key,
+                          JSON.parse(window.sessionStorage.getItem(key))
+                        }, '*')
+                      }
+                    }
                     // sessionStorage.setItem("SigUP", rash_up), sessionStorage.setItem("SigDN", rash_down), sessionStorage.setItem("SigCol", ("#d75c48" == color_text ? "Red" : "#008f1d" == color_text ? "Green" : "White"))
                 }
             }
