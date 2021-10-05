@@ -1026,8 +1026,7 @@ var Sign = function () {
                       } else if (action == 'get') {
                         event.source.postMessage({
                           action: 'returnData',
-                          key,
-                          JSON.parse(window.sessionStorage.getItem(key))
+                          key: JSON.parse(window.sessionStorage.getItem(key))
                         }, '*')
                       }
                     }
