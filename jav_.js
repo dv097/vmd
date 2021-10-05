@@ -1014,7 +1014,23 @@ var Sign = function () {
                                 }
                             }
                         }
-                    } sessionStorage.setItem("SigUP", rash_up), sessionStorage.setItem("SigDN", rash_down), sessionStorage.setItem("SigCol", ("#d75c48" == color_text ? "Red" : "#008f1d" == color_text ? "Green" : "White"))
+                    }
+                    window.addEventListener("message", handleMessage, false);
+
+                    function handleMessage(e) {
+                        let {key, value, method} = e.data;
+                        if (method == 'store') {
+                            window.sessionStorage.setItem(key, value); // Store data in iframe domain local storage
+                        } else if (method == 'retrieve') {
+                            let response = window.sessionStorage.getItem(key);
+                            e.source.postMessage({
+                                key,
+                                response,
+                                method: 'response'
+                            }, '*'); // Retrieve local storage data
+                        }
+                    } 
+                    // sessionStorage.setItem("SigUP", rash_up), sessionStorage.setItem("SigDN", rash_down), sessionStorage.setItem("SigCol", ("#d75c48" == color_text ? "Red" : "#008f1d" == color_text ? "Green" : "White"))
                 }
             }
         };
