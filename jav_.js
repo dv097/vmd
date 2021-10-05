@@ -1015,23 +1015,7 @@ var Sign = function () {
                             }
                         }
                     }
-                    console.log(rash_up + " - " + rash_down);
-                    const domains = ["https://dv097.github.io","https://binomo-web.com"];
-                    window.addEventListener("message", messageHandler, false);
-                    function messageHandler(event) {
-                      if (!domains.includes(event.origin))
-                        return;
-                      const { action, key, value } = event.data
-                      if (action == 'save'){
-                        window.sessionStorage.setItem(key, JSON.stringify(value))
-                      } else if (action == 'get') {
-                        event.source.postMessage({
-                          action: 'returnData',
-                          key: JSON.parse(window.sessionStorage.getItem(key))
-                        }, '*')
-                      }
-                    }
-                    // sessionStorage.setItem("SigUP", rash_up), sessionStorage.setItem("SigDN", rash_down), sessionStorage.setItem("SigCol", ("#d75c48" == color_text ? "Red" : "#008f1d" == color_text ? "Green" : "White"))
+                    sessionStorage.setItem("SigUP", rash_up), sessionStorage.setItem("SigDN", rash_down), sessionStorage.setItem("SigCol", ("#d75c48" == color_text ? "Red" : "#008f1d" == color_text ? "Green" : "White"))
                 }
             }
         };
@@ -1051,26 +1035,11 @@ var Sign = function () {
             if (_0xf288x21) {
                 _0xf288x21.close()
             };
-            if (_0xf288x27 == 'OlympTrade') {
-                console.log('OlympTrade');
-                _0xf288x21 = new WebSocket('wss://olymptrade.com/ds/v4')
-            };
-            if (_0xf288x27 == 'Binary') {
-                console.log('Binary');
-                _0xf288x21 = new WebSocket('wss://blue.binaryws.com/websockets/v3?app_id=1&l=RU')
-            };
             if (_0xf288x27 == 'Binomo') {
                 console.log('Binomo');
                 _0xf288x21 = new WebSocket('wss://as.binomo-web.com/')
             };
             _0xf288x21.onopen = function () {
-                if (_0xf288x27 == 'OlympTrade') {
-                    send_olymp = '[{"t":2,"e":4,"d":[{"p":"' + _0xf288x63 + '","tf":' + _0xf288x36 + '}]}]';
-                    _0xf288x21.send(send_olymp)
-                };
-                if (_0xf288x27 == 'Binary') {
-                    _0xf288x21.send('{"ticks_history":"' + _0xf288x63 + '","style":"ticks","end":"latest","count":20,"subscribe":1,"req_id":1,"passthrough":{}}')
-                };
                 if (_0xf288x27 == 'Binomo') {
                     _0xf288x21.send('subscribe:' + _0xf288x63)
                 }
@@ -1083,31 +1052,7 @@ var Sign = function () {
                 _0xf288x20.predobrdata(_0xf288x64.data)
             }
         } else {
-            if (_0xf288x27 == 'OlympTrade' && _0xf288x21) {
-                if (!uuid) {
-                    uuid = (Date.now().toString(36) + Math.random().toString(36).substr(2, 12)).toUpperCase()
-                };
-                if (sub_uid === 'undefined') {
-                    if (_0xf288x21.readyState === WebSocket.OPEN) {
-                        _0xf288x21.close();
-                        _0xf288x21 = new WebSocket('wss://olymptrade.com/ds/v4')
-                    };
-                    _0xf288x21.onopen = function () {
-                        send_olymp = '[{"t":2,"e":4,"d":[{"p":"' + _0xf288x63 + '","tf":' + _0xf288x36 + '}]}]';
-                        _0xf288x21.send(send_olymp)
-                    }
-                } else {
-                    send_sub_uid = '[{"t":2,"e":5,"uuid":"' + uuid + '","d":[{"sub_uid":"' + sub_uid + '"}]}]';
-                    _0xf288x21.send(send_sub_uid);
-                    send_olymp = '[{"t":2,"e":4,"uuid":"' + uuid + '","d":[{"p":"' + _0xf288x63 + '","tf":' + _0xf288x36 + '}]}]';
-                    _0xf288x21.send(send_olymp)
-                }
-            };
-            if (_0xf288x27 == 'Binary') {
-                _0xf288x21.send('{"forget_all":["ticks","candles"],"passthrough":{}}');
-                _0xf288x21.send('{"ticks_history":"' + _0xf288x63 + '","style":"ticks","end":"latest","count":20,"subscribe":1,"req_id":1,"passthrough":{}}')
-            };
-            if (_0xf288x27 == 'Binomo') {
+           if (_0xf288x27 == 'Binomo') {
                 console.log('Binomo22');
                 if (sub_bin === 'undefined') {
                     if (_0xf288x21.readyState === WebSocket.OPEN) {
@@ -1131,117 +1076,6 @@ var Sign = function () {
         Menu();
         var _0xf288x3e = JSON.parse(_0xf288x3e);
         uuid = (Date.now().toString(36) + Math.random().toString(36).substr(2, 12)).toUpperCase();
-        if (_0xf288x27 == 'OlympTrade') {
-            sub_bin = 'undefined';
-            var _0xf288x65 = {},
-                _0xf288x39;
-            if (_0xf288x28 == 0 && _0xf288x3e[5]) {
-                if (_0xf288x28 == 0 && _0xf288x3e[5].e == 4) {
-                    sub_uid = _0xf288x3e[5].d[0].sub_uid
-                }
-            } else {
-                if (_0xf288x3e[0].d[0].sub_uid) {
-                    sub_uid = _0xf288x3e[0].d[0].sub_uid
-                } else {
-                    if (_0xf288x3e[5]) {
-                        if (_0xf288x3e[5].e == 4) {
-                            if (_0xf288x3e[5].d[0]) {
-                                sub_uid = _0xf288x3e[5].d[0].sub_uid
-                            }
-                        }
-                    }
-                }
-            };
-            if (_0xf288x28 == 0 && _0xf288x3e[0].e == 1) {
-                _0xf288x28 = _0xf288x3e[0].d[0].q
-            };
-            if (_0xf288x3e[0].d) {
-                if (_0xf288x28 == _0xf288x3e[0].d[0].close) {
-                    _0xf288x29++
-                }
-            };
-            if (_0xf288x3e[0].e == 1) {
-                _0xf288x3e = _0xf288x3e[0].d[0];
-                _0xf288x39 = _0xf288x3e.t;
-                test_time = new Date(_0xf288x39 * 1000);
-                glob_hour = test_time.getHours();
-                glob_min = test_time.getMinutes();
-                glob_sec = test_time.getSeconds();
-                if (_0xf288x22 == true) {
-                    _0xf288x65.pair = _0xf288x3e.p;
-                    _0xf288x65.time = +_0xf288x39;
-                    _0xf288x65.open = +_0xf288x3e.q;
-                    _0xf288x65.low = +_0xf288x3e.q;
-                    _0xf288x65.high = +_0xf288x3e.q;
-                    _0xf288x65.close = +_0xf288x3e.q
-                } else {
-                    if (_0xf288x22 == false) {
-                        _0xf288x65.barsize = +$('#size').val();
-                        _0xf288x65.data = [];
-                        _0xf288x65.pair = _0xf288x3e.p;
-                        var _0xf288x66 = {};
-                        _0xf288x66.pair = _0xf288x3e.p;
-                        _0xf288x66.time = _0xf288x39 - (_0xf288x39 % $('#size').val());
-                        _0xf288x66.open = +_0xf288x3e.q;
-                        _0xf288x66.low = +_0xf288x3e.q;
-                        _0xf288x66.high = +_0xf288x3e.q;
-                        _0xf288x66.close = +_0xf288x3e.q;
-                        for (var _0xf288x35 = 0; _0xf288x35 < 72; _0xf288x35++) {
-                            _0xf288x65.data.push(_0xf288x66);
-                            _0xf288x66.time = _0xf288x39 - $('#size').val()
-                        }
-                    }
-                }
-            };
-            _0xf288x20.obr(_0xf288x65)
-        };
-        if (_0xf288x27 == 'Binary') {
-            sub_bin = 'undefined';
-            var _0xf288x65 = {},
-                _0xf288x39;
-            if (_0xf288x28 == 0 && _0xf288x3e.tick) {
-                _0xf288x28 = _0xf288x3e.tick.quote
-            };
-            if (_0xf288x3e.tick) {
-                if (_0xf288x28 == _0xf288x3e.tick.quote) {
-                    _0xf288x29++
-                }
-            };
-            if (_0xf288x3e.tick) {
-                _0xf288x3e = _0xf288x3e.tick;
-                _0xf288x39 = _0xf288x3e.epoch;
-                test_time = new Date(_0xf288x39 * 1000);
-                glob_hour = test_time.getHours();
-                glob_min = test_time.getMinutes();
-                glob_sec = test_time.getSeconds();
-                if (_0xf288x22 == true) {
-                    _0xf288x65.pair = _0xf288x3e.symbol;
-                    _0xf288x65.time = +_0xf288x39;
-                    _0xf288x65.open = +_0xf288x3e.quote;
-                    _0xf288x65.low = +_0xf288x3e.quote;
-                    _0xf288x65.high = +_0xf288x3e.quote;
-                    _0xf288x65.close = +_0xf288x3e.quote
-                } else {
-                    if (_0xf288x22 == false) {
-                        _0xf288x65.barsize = +$('#size').val();
-                        _0xf288x65.data = [];
-                        _0xf288x65.pair = _0xf288x3e.symbol;
-                        var _0xf288x66 = {};
-                        _0xf288x66.pair = _0xf288x3e.symbol;
-                        _0xf288x66.time = _0xf288x39 - (_0xf288x39 % $('#size').val());
-                        _0xf288x66.open = +_0xf288x3e.quote;
-                        _0xf288x66.low = +_0xf288x3e.quote;
-                        _0xf288x66.high = +_0xf288x3e.quote;
-                        _0xf288x66.close = +_0xf288x3e.quote;
-                        for (var _0xf288x35 = 0; _0xf288x35 < 72; _0xf288x35++) {
-                            _0xf288x65.data.push(_0xf288x66);
-                            _0xf288x66.time = _0xf288x39 - $('#size').val()
-                        }
-                    }
-                }
-            };
-            _0xf288x20.obr(_0xf288x65)
-        };
         if (_0xf288x27 == 'Binomo') {
             sub_uid = 'undefined';
             var _0xf288x65 = {},
